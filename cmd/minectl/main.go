@@ -31,7 +31,6 @@ const v = "https://s3.amazonaws.com/Minecraft.Download/versions/versions.json"
 func main() {
 	flag.Parse()
 
-	// update
 	resp, err := http.Get(v)
 	if err != nil {
 		log.Println("fetch error", err.Error())
@@ -47,22 +46,11 @@ func main() {
 		return
 	}
 
-	//check
-	fname := "versions.json"
-	/*
-		f, err := os.Open(fname)
-		if err != nil {
-			log.Println("couldn't open %s", fname)
-			return
-		}
-		defer f.Close()
-	*/
-
 	d := json.NewDecoder(resp.Body)
 
 	var versions versions
 	if err := d.Decode(&versions); err != nil {
-		log.Println("couldn't parse %s", fname)
+		log.Println("couldn't parse %s", v)
 		os.Exit(1)
 		return
 	}
